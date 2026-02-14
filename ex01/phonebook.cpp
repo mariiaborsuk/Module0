@@ -1,4 +1,5 @@
 #include "phonebook.hpp"
+
 void add_command(PhoneBook &book)
 {
 	std::string name1;
@@ -6,7 +7,7 @@ void add_command(PhoneBook &book)
 	std::string nickname;
 	std::string phone_number;
 	std::string secret;
-	std::cout << "First name: " << std::endl;
+	std::cout <<"First name: "  << std::endl;
 	std::getline(std::cin, name1);
 	std::cout << "Last name: " << std::endl;
 	std::getline(std::cin, last_name);
@@ -22,7 +23,7 @@ void add_command(PhoneBook &book)
 		std::cout << "Please, fill in all the data!" << std::endl;
 }
 
-void display_each(std::string str)
+void Contact :: display_each(std::string str)
 	{
 		int len = 10 - str.length() - 1;
 		if (len <= 0)
@@ -33,11 +34,68 @@ void display_each(std::string str)
 		}
 		else
 		{
-			for (int i = 0; i <= len; i++)
+			std::cout <<std::setw(10) << str;
+		}
+	}
+	void Contact::display(void)
+	{
+
+		std::cout <<std::setw(10)<< index << "|";
+		display_each(first_name);
+		std::cout << "|";
+		display_each(last_name);
+		std::cout << "|";
+		display_each(nickname);
+	}
+		void PhoneBook::add(std::string name, std::string last_name, std::string nickname, std::string phone, std::string secret)
+	{
+		Contact contact;
+		if (this->count < 8)
+		{
+			contact.set_name(name);
+			contact.set_last_name(last_name);
+			contact.set_nickname(nickname);
+			contact.set_phone(phone);
+			contact.set_secret(secret);
+			contact.set_index(this->get_count());
+			this->contacts[count] = contact;
+			this->count++;
+		}
+		else
+		{
+			this->contacts[0].set_name(name);
+			this->contacts[0].set_last_name(last_name);
+			this->contacts[0].set_nickname(nickname);
+			this->contacts[0].set_phone(phone);
+			this->contacts[0].set_secret(secret);
+			this->contacts[0].set_index(0);
+		}
+	}
+	void PhoneBook ::search()
+	{
+		for (int i = 0; i < count; i++)
+		{
+			contacts[i].display();
+			std::cout << std::endl;
+		}
+	}
+	void PhoneBook:: display_data(int index)
+	{
+		for (int i = 0; i < count; i++)
+		{
+			if (index == contacts[i].get_index())
 			{
-				std::cout << " ";
+				std::cout << contacts[i].get_name();
+				std::cout << std::endl;
+				std::cout << contacts[i].get_lastname();
+				std::cout << std::endl;
+				std::cout << contacts[i].get_nickname();
+				std::cout << std::endl;
+				std::cout << contacts[i].get_phone();
+				std::cout << std::endl;
+				std::cout << contacts[i].get_secret();
+				std::cout << std::endl;
 			}
-			std::cout << str;
 		}
 	}
 int main(void)
@@ -48,9 +106,9 @@ int main(void)
 	{
 		std::cout << std::endl;
 		std::string cmd;
-		std::cout << "Enter command:" << std::endl;
-		std::cin >> cmd;
-		std::cin.ignore();
+		std::cout << "Enter command:\n";
+		//  std::cin>> cmd;
+		std::getline(std::cin, cmd);
 		if (cmd == "ADD")
 		{
 			add_command(book);
