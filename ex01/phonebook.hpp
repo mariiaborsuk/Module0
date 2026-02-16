@@ -1,3 +1,5 @@
+#ifndef PHONEBOOK_HPP
+#define PHONEBOOK_HPP
 #include <iomanip>
 #include <iostream>
 class Contact
@@ -30,12 +32,15 @@ class PhoneBook
 {
 private:
 	Contact contacts[8];
+	int index;
 	int count;
 
 public:
+	int get_index() { return index; }
 	int get_count() { return count; }
-	PhoneBook() { count = 0; }
+	PhoneBook() { index=0; count=0;}
 	void add(std::string name, std::string last_name, std::string nickname, std::string phone, std::string secret);
 	void search();
 	void display_data(int index);
 };
+#endif

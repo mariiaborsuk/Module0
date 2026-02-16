@@ -50,26 +50,16 @@ void Contact :: display_each(std::string str)
 		void PhoneBook::add(std::string name, std::string last_name, std::string nickname, std::string phone, std::string secret)
 	{
 		Contact contact;
-		if (this->count < 8)
-		{
 			contact.set_name(name);
 			contact.set_last_name(last_name);
 			contact.set_nickname(nickname);
 			contact.set_phone(phone);
 			contact.set_secret(secret);
-			contact.set_index(this->get_count());
-			this->contacts[count] = contact;
-			this->count++;
-		}
-		else
-		{
-			this->contacts[0].set_name(name);
-			this->contacts[0].set_last_name(last_name);
-			this->contacts[0].set_nickname(nickname);
-			this->contacts[0].set_phone(phone);
-			this->contacts[0].set_secret(secret);
-			this->contacts[0].set_index(0);
-		}
+			contact.set_index(this->get_index());
+			this->contacts[index] = contact;
+			if(count<0)
+				count++;
+			index = (index + 1) % 8;
 	}
 	void PhoneBook ::search()
 	{
